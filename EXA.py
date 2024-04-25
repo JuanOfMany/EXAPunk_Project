@@ -36,14 +36,19 @@ class Exa():
     def copy(self, value, destination):
         setattr(self, destination, value)
         # print('X, F, T:', self.X, self.F, self.T)
+
+    def isNum(value)
+        if value not isdigit():
+            value_result = getattr(self, 'value')
+            return value_result
+        return value
     
     def add(self, value, value2, destination):
-        self.destination = self.value + self.value2
-        
-        setattr(self, value, value2, destination)
+        sum = isNum(value) + isNum(value2)
+        setattr(self, sum, destination)
         
          
-        # print('X, F, T:', self.X, self.F, self.T)
+        print('X, F, T:', self.X, self.F, self.T)
 
 testExa = Exa()
 testExa.read(sys.argv[1])
