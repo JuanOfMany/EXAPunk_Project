@@ -39,6 +39,10 @@ class Exa():
         if operation == 'MODI':
             self.modi(value, value2, destination)
 
+        if operation = 'TEST':
+            print('in test:', isNum(value), isNum(value2))
+            self.test(isNum(value), isNum(value2))
+
     def copy(self, value, destination):
         setattr(self, destination, value)
         # print('X, F, T:', self.X, self.F, self.T)
@@ -73,7 +77,28 @@ class Exa():
         result = self.isNum(value) % self.isNum(value2)
         setattr(self, destination, result)
         print(f'X: {self.X}, F:{self.F}, T:{self.T}')
-    
+        
+    def test(self, value1, operator, value2):
+        match operator:
+            case "=":
+                if value1 == value2:
+                    setattr(self, 'T', 1)
+                else:
+                    setattr(self, 'T', 0)
+                    
+            case ">":
+                if value1 > value2:
+                    setattr(self, 'T', 1)
+                else:
+                    setattr(self, 'T', 0)
+                    
+            case "<":
+                if value1 < value2:
+                    setattr(self, 'T', 1)
+                else:
+                    setattr(self, 'T', 0)
+                    
+        
 
 testExa = Exa()
 testExa.read(sys.argv[1])
