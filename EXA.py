@@ -5,6 +5,7 @@ class Exa():
       self.X = 0
       self.T = 0
       self.F = 0
+      print('X, F, T:', self.X, self.F, self.T)
 
     def read(self, file):
         with open(file) as opened_file:
@@ -17,8 +18,8 @@ class Exa():
         value = split_line[1]
         destination = split_line[2]
         if operation == 'COPY':
-        #   self[destination] = value
-            print('COPY')
+            setattr(self, destination, value)
+            print('X, F, T:', self.X, self.F, self.T)
     #     if operation = 'ADDI':
     #         val1 + val2 = exampleVal
           
