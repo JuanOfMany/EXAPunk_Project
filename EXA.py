@@ -37,10 +37,15 @@ class Exa():
     def copy(self, value, destination):
         setattr(self, destination, value)
         # print('X, F, T:', self.X, self.F, self.T)
+
+    def isNum(self, value):
+        if not value.isdigit():
+            value_result = getattr(self, 'value')
+            return value_result
+        return value
     
     def add(self, value, value2, destination):
-        sum = value + value2
-        
+        sum = self.isNum(value) + self.isNum(value2)
         setattr(self, sum, destination)
         
          
