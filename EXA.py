@@ -16,10 +16,12 @@ class Exa():
         split_line = line.split()
         operation = split_line[0]
         value = split_line[1]
-        destination = split_line[2]
+        if len(split_line) > 3:
+            value2= split_line[3]
+        destination = split_line[-1]
         if operation == 'COPY':
-            setattr(self, destination, value)
-            print('X, F, T:', self.X, self.F, self.T)
+            self.copy(value, destination)
+
     #     if operation = 'ADDI':
     #         val1 + val2 = exampleVal
           
@@ -32,7 +34,8 @@ class Exa():
     #     if operation = 'MODI':
 
     def copy(self, value, destination):
-       destination = value
+        setattr(self, destination, value)
+        # print('X, F, T:', self.X, self.F, self.T)
 
 testExa = Exa()
 testExa.read(sys.argv[1])
