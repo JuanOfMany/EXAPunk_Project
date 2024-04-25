@@ -22,7 +22,8 @@ class Exa():
         if operation == 'COPY':
             self.copy(value, destination)
 
-         if operation = 'ADDI':
+        if operation == 'ADDI':
+             print('values', value, value2, destination)
              self.add(value, value2, destination)
           
     #     if operation = 'SUBI':
@@ -38,12 +39,12 @@ class Exa():
         # print('X, F, T:', self.X, self.F, self.T)
     
     def add(self, value, value2, destination):
-        self.destination = self.value + self.value2
+        sum = value + value2
         
-        setattr(self, value, value2, destination)
+        setattr(self, sum, destination)
         
          
-        # print('X, F, T:', self.X, self.F, self.T)
+        print('X, F, T:', self.X, self.F, self.T)
 
 testExa = Exa()
 testExa.read(sys.argv[1])
