@@ -17,13 +17,13 @@ class Exa():
         operation = split_line[0]
         value = split_line[1]
         if len(split_line) > 3:
-            value2= split_line[3]
+            value2 = split_line[3]
         destination = split_line[-1]
         if operation == 'COPY':
             self.copy(value, destination)
 
-    #     if operation = 'ADDI':
-    #         val1 + val2 = exampleVal
+         if operation = 'ADDI':
+             self.add(value, value2, destination)
           
     #     if operation = 'SUBI':
 
@@ -35,6 +35,14 @@ class Exa():
 
     def copy(self, value, destination):
         setattr(self, destination, value)
+        # print('X, F, T:', self.X, self.F, self.T)
+    
+    def add(self, value, value2, destination):
+        self.destination = self.value + self.value2
+        
+        setattr(self, value, value2, destination)
+        
+         
         # print('X, F, T:', self.X, self.F, self.T)
 
 testExa = Exa()
