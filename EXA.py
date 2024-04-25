@@ -23,16 +23,24 @@ class Exa():
             self.copy(value, destination)
 
         if operation == 'ADDI':
-             print('in add:', value, value2, destination)
+             # print('in add:', value, value2, destination)
              self.add(value, value2, destination)
           
-    #     if operation = 'SUBI':
+        if operation = 'SUBI':
+            print('in sub:', value, value2, destination)
+            self.sub(value, value2, destination)
 
-    #     if operation = 'MULTI':
+        if operation = 'MULTI':
+            print('in multi:', value, value2, destination)
+            self.multi(value, value2, destination)
 
-    #     if operation = 'DIVI':
+        if operation = 'DIVI':
+            print('in div:', value, value2, destination)
+            self.div(value, value2, destination)
 
-    #     if operation = 'MODI':
+        if operation = 'MODI':
+            print('in modi:', value, value2, destination)
+            self.modi(value, value2, destination)
 
     def copy(self, value, destination):
         setattr(self, destination, value)
@@ -45,9 +53,30 @@ class Exa():
         return int(value)
     
     def add(self, value, value2, destination):
-        sum = self.isNum(value) + self.isNum(value2)
-        setattr(self, destination, sum)
+        result = self.isNum(value) + self.isNum(value2)
+        setattr(self, destination, result)
         print(f'X: {self.X}, F:{self.F}, T:{self.T}')
+
+    def sub(self, value, value2, destination):
+        result = self.isNum(value) - self.isNum(value2)
+        setattr(self, destination, result)
+        print(f'X: {self.X}, F:{self.F}, T:{self.T}')
+
+    def multi(self, value, value2, destination):
+        result = self.isNum(value) * self.isNum(value2)
+        setattr(self, destination, result)
+        print(f'X: {self.X}, F:{self.F}, T:{self.T}')
+
+    def div(self, value, value2, destination):
+        result = self.isNum(value) / self.isNum(value2)
+        setattr(self, destination, result)
+        print(f'X: {self.X}, F:{self.F}, T:{self.T}')
+
+    def mod(self, value, value2, destination):
+        result = self.isNum(value) % self.isNum(value2)
+        setattr(self, destination, result)
+        print(f'X: {self.X}, F:{self.F}, T:{self.T}')
+    
 
 testExa = Exa()
 testExa.read(sys.argv[1])
