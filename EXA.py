@@ -6,9 +6,16 @@ class Exa():
       self.T = 0
       self.F = 0
       self.marks = {}
+      self.file = []
 
+    # added file lines to list separated by \n and stripped
+        # need to use list to properly implement jumping
+            # specifically looped jumping
     def read(self, file, starting_index):
         with open(file) as opened_file:
+            for line in opened_file:
+                self.file.append(line.strip())
+            print(self.file)
             total_line_count = len(opened_file.readlines())
             opened_file.seek(0)
             for line_num, line in enumerate(opened_file, starting_index):
@@ -37,7 +44,7 @@ class Exa():
                         if not getattr(self, 'T', self.marks[mark_to_jump]):
                             print('fjmp', mark_to_jump)
                             for num in range(self.marks[mark_to_jump], total_line_count):
-                                self.operate(opened_file[num])
+                                self.operate(self.file[line_num])
 
       
     def operate(self, line, line_num):
