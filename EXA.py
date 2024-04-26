@@ -7,10 +7,38 @@ class Exa():
       self.F = 0
       self.marks = {}
 
-    def read(self, file):
+    def read(self, file, starting_index):
         with open(file) as opened_file:
-            for line_num, line in enumerate(opened_file, 1):
-               self.operate(line, line_num)
+            total_line_count = len(opened_file.readlines())
+            opened_file.seek(0)
+            for line_num, line in enumerate(opened_file, starting_index):
+                operate_return = self.operate(line, line_num)
+                if operate_return:
+                    type_of_jump = operate_return[0]
+                    mark_to_jump = operate_return[1]
+                    # do some jumps
+                    if type_of_jump == 'JUMP':
+                        for num in range(self.marks[mark_to_jump], total_line_count):
+                            self.operate(opened_file[num])
+
+                    # if type_of_jump == 'TJMP':
+                    #     if (getattr(self, 'T')):
+                    #         self.read(file, self.marks[mark_to_jump] + 1)
+
+                    if type_of_jump == 'TJMP':
+                        if (getattr(self, 'T')):
+                            with open(file) as new_file:
+                                for new_line_num, line in enumerate(new_file, 1):
+                                    if new_line_num in range(self.marks[mark_to_jump] + 1, total_line_count):
+                                        print('new_line_num:', new_line_num)
+                                        self.operate(line, line_num)
+
+                    if type_of_jump == 'FJMP':
+                        if not getattr(self, 'T', self.marks[mark_to_jump]):
+                            print('fjmp', mark_to_jump)
+                            for num in range(self.marks[mark_to_jump], total_line_count):
+                                self.operate(opened_file[num])
+
       
     def operate(self, line, line_num):
         # print('line:', line, 'line_num:', line_num)
@@ -45,7 +73,16 @@ class Exa():
 
         if operation == 'MARK':
             self.marks[value] = line_num
-            print(self.marks)
+
+        if operation == 'JUMP':
+            return ('JUMP', value)
+
+        if operation == 'TJMP':
+            return ('TJMP', value)
+
+        if operation == 'FJMP':
+            return ('FJMP', value)
+
 
         print(f'X: {self.X}. T: {self.T}')
 
@@ -101,4 +138,4 @@ class Exa():
         
 
 testExa = Exa()
-testExa.read(sys.argv[1])
+testExa.read(sys.argv[1], 1)
