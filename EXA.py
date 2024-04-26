@@ -99,9 +99,16 @@ class Exa():
                 self.modi(value, value2, destination)
 
             if operation == 'TEST':
-                value2 = split_line[3]
-                operator = split_line[2]
-                self.test(self.isNum(value), operator, self.isNum(value2))
+                if (value == 'EOF'):
+                    if self.file_cursor + 1 == len(self.file_storage[self.current_file]):
+                        self.T = 1
+                        print('end of file')
+                    else:
+                        self.T = 0
+                else:
+                    value2 = split_line[3]
+                    operator = split_line[2]
+                    self.test(self.isNum(value), operator, self.isNum(value2))
 
             if operation == 'MARK':
                 self.marks[value] = line_num
