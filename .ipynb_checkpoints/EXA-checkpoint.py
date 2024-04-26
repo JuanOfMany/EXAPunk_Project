@@ -7,12 +7,10 @@ class Exa():
       self.F = 0
       self.marks = {}
       self.file = []
-      self.file_cursor = 0
-      self.file_storage = {
-          '100' : [50, 2, 3],
-          '200' : []
-      }
 
+    # added file lines to list separated by \n and stripped
+        # need to use list to properly implement jumping
+            # specifically looped jumping
     def read(self, file):
         with open(file) as opened_file:
             for line in opened_file:
@@ -20,15 +18,28 @@ class Exa():
             total_line_count = len(self.file)
             opened_file.seek(0)
             for line_num, line in enumerate(opened_file):
-                self.operate(line, line_num)
+                operate_return = self.operate(line, line_num)
+                
+                if operate_return:
+                    type_of_jump = operate_return[0]
+                    mark_to_jump = operate_return[1]
+                    # do some jumps
+                    if type_of_jump == 'JUMP':
+                        for num in range(self.marks[mark_to_jump], total_line_count):
+                            self.operate(opened_file[num], num)
 
-    def grab(self, file_id):
-        if len(self.file_storage[file_id]) < 1: 
-            setattr(self, 'F', None)
-        else:            
-            setattr(self, 'F', self.file_storage[file_id][0])
-        self.file_cursor += 1
+                    if type_of_jump == 'TJMP':
+                        if (getattr(self, 'T')):
+                            for num in range((self.marks[mark_to_jump]) + 1, total_line_count):
+                                self.operate(self.file[num], num)
 
+                    if type_of_jump == 'FJMP':
+                        if not getattr(self, 'T', self.marks[mark_to_jump]):
+                            print('fjmp', mark_to_jump)
+                            for num in range(self.marks[mark_to_jump], total_line_count):
+                                self.operate(self.file[line_num], num)
+
+      
     def operate(self, line, line_num):
         print('line:', line.strip(), 'line_num:', line_num)
         split_line = line.split()
@@ -37,9 +48,6 @@ class Exa():
         if len(split_line) > 3:
             value2 = split_line[2]
         destination = split_line[-1]
-        if operation == 'GRAB':
-            self.grab(value)
-
         if operation == 'COPY':
             self.copy(self.isNum(value), destination)
 
@@ -80,7 +88,7 @@ class Exa():
                 for num in range((self.marks[value]) + 1, len(self.file)):
                     self.operate(self.file[num], num)
 
-        print(f'X: {self.X}, T: {self.T}, F: {self.F}')
+        print(f'X: {self.X}. T: {self.T}')
 
     def isNum(self, value):
         if not value.isdigit():
